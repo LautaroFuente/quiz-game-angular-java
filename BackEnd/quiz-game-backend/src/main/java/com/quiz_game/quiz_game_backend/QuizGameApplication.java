@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class QuizGameApplication {
 
 	public static void main(String[] args) {
+		
 		SpringApplication.run(QuizGameApplication.class, args);
+		System.out.println("Aplicacion BackEnd Funcionando");
 	}
 
 }
