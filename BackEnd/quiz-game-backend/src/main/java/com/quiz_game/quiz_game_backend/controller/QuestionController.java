@@ -1,5 +1,5 @@
 package com.quiz_game.quiz_game_backend.controller;
 
-public class QuizController {
+public class QuestionController {
 
 }
