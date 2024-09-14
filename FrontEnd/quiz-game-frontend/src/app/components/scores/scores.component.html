@@ -1,1 +1,9 @@
 <h1>Puntuaciones</h1>
+
+<ul>
+  @for (score of scores; track score.userEmail) {
+  <li>{{ score.userName }} {{ score.userEmail }} {{ score.userScore }}</li>
+  } @empty {
+  <li>No hay puntuaciones.</li>
+  }
+</ul>
