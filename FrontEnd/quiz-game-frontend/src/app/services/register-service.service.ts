@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Difficulty } from '../types/difficulty.type';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ScoresServiceService {
-  private apiUrl = 'http://localhost:8080/api/scores';
+export class RegisterServiceService {
+  private apiUrl = 'http://localhost:8080/api/users';
 
   constructor(private http: HttpClient) {}
 
-  getScores(): Observable<any> {
+  getUsers(): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -19,15 +18,9 @@ export class ScoresServiceService {
     return this.http.get<any>(this.apiUrl, { headers });
   }
 
-  saveScore(
-    userName: string,
-    userEmail: string,
-    userScore: number,
-    win: boolean,
-    difficulty: Difficulty
-  ): Observable<any> {
-    const url = 'http://localhost:8080/api/scores';
-    const data = { userName, userEmail, userScore, win, difficulty };
+  saveUser(userName: string, userEmail: string): Observable<any> {
+    const url = 'http://localhost:8080/api/users';
+    const data = { userName, userEmail };
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

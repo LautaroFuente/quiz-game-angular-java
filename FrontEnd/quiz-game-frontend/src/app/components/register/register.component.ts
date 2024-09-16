@@ -9,6 +9,7 @@ import {
 import { GameServiceService } from '../../services/game-service.service';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
+import { RegisterServiceService } from '../../services/register-service.service';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +26,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private gameService: GameServiceService,
-    private router: Router
+    private router: Router,
+    private registerService: RegisterServiceService
   ) {}
 
   ngOnInit() {
@@ -38,6 +40,10 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.gameService.setUserName(this.name);
     this.gameService.setUserEmail(this.email);
+    this.registerService.saveUser(this.name, this.email).subscribe(
+      (response) => console.log('Informacion guardada', response),
+      (error) => console.log(`Error al enviar`, error)
+    );
     this.router.navigate(['/difficulty']);
   }
 }

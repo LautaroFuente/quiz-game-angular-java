@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ScoresServiceService } from '../../services/scores-service.service';
-// import de interface de el dato a solicitar import { ? } from '../../../../interfaces/?.model';
+import { Score } from '../../interfaces/Score.interface';
 
 @Component({
   selector: 'app-scores',
@@ -10,7 +10,7 @@ import { ScoresServiceService } from '../../services/scores-service.service';
   styleUrl: './scores.component.css',
 })
 export class ScoresComponent {
-  scores!: any[]; //reemplazar por dato interface;
+  scores!: Score[];
 
   constructor(private scoreService: ScoresServiceService) {
     this.scoreService.getScores().subscribe(
