@@ -6,4 +6,5 @@ import com.quiz_game.quiz_game_backend.entities.Difficulty;
 
 public interface DifficultyRepository extends JpaRepository<Difficulty, Long>{
 
+	Difficulty findByName(String nombre);
 }

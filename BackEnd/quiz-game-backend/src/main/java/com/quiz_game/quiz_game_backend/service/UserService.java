@@ -1,6 +1,7 @@
 package com.quiz_game.quiz_game_backend.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,8 @@ public class UserService {
 	}
 	
 	public User getOneUser(String email) {
-		return null;
+		Optional<User> usuario = userrepository.findByEmail(email);
+	    return usuario.orElse(null);
 	}
 	
 	public void addUser(User user) {

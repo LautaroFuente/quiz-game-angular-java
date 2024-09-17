@@ -18,11 +18,7 @@ public class ScoreService {
 		return this.scorerepository.findAll();
 	}
 	
-	public Score getOneUser(String email) {
-		return null;
-	}
-	
-	public void addUser(Score score) {
+	public void addScore(Score score) {
 		this.scorerepository.save(score);
 	}
 }
