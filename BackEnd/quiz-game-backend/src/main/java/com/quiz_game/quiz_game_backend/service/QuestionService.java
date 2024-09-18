@@ -1,7 +1,7 @@
 package com.quiz_game.quiz_game_backend.service;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class QuestionService {
 		return this.questionrepository.findAll();
 	}
 	
-	public Question getOneQuestion(String difficulty) {
+	public List<Question> getQuestionsForDifficulty(String difficulty) {
 		Difficulty selectedDifficulty = this.difficultyrespository.findByName(difficulty);
 		
 		if(selectedDifficulty == null) {
@@ -34,12 +34,12 @@ public class QuestionService {
 		List<Question> questions = this.questionrepository.findByDifficulty(selectedDifficulty);
 		
 		if (questions.isEmpty()) {
-            throw new RuntimeException("No hay preguntas disponibles para esta dificultad"); // O manejar el error de otra forma
+            throw new RuntimeException("No hay preguntas disponibles para esta dificultad");
         }
 		
-		Random random = new Random();
-		int index = random.nextInt(questions.size());
-        return questions.get(index);
+	    Collections.shuffle(questions);
+	    
+	    return questions.subList(0, 10);
 	}
 	
 	public void addQuestion(Question question) {

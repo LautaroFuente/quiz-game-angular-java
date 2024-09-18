@@ -19,6 +19,15 @@ CREATE TABLE Question (
     FOREIGN KEY (difficulty_id) REFERENCES Difficulty(id)
 );
 
+-- Tabla de Respuestas
+CREATE TABLE Answers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    question_id INT,
+    description VARCHAR(255) NOT NULL,
+    correct BOOLEAN NOT NULL,
+    FOREIGN KEY (question_id) REFERENCES Question(id)
+);
+
 -- Tabla de Puntuaciones
 CREATE TABLE Score (
     id INT AUTO_INCREMENT PRIMARY KEY,  
