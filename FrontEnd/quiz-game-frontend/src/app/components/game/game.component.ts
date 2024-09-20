@@ -54,7 +54,7 @@ export class GameComponent implements OnDestroy{
     setTimeout(() => {
       this.time = this.time - 1;
       if(this.time == 0){
-        //endgame
+        this.endgame();
       }
     }, 1000);    
 
@@ -69,8 +69,12 @@ export class GameComponent implements OnDestroy{
       this.time -= 5;
     }
 
-    this.index += 1;
-    this.loadAnswers();
+    if(this.index == 9){
+      this.endgame();
+    }else{
+      this.index += 1;
+      this.loadAnswers();
+    }  
   }
 
   loadAnswers():void{
