@@ -19,3 +19,11 @@ public class QuizGameApplication {
 	}
 
 }
+/*
+ * TODO:Manejo errores en controladores:
+ * 
+ * Validación de Parámetros: Antes de llamar al servicio, puedes validar el parámetro para asegurarte de que no sea nulo o negativo.
+ * Captura de Excepciones: Puedes capturar excepciones específicas que puedan ocurrir al obtener respuestas desde el servicio y devolver un mensaje de error adecuado.
+ * Respuesta Estandarizada: Es útil devolver un objeto de respuesta estandarizado que incluya información sobre el éxito o el error.
+ * */
+ 

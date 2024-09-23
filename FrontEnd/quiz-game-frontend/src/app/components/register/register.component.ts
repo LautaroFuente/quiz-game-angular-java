@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -10,6 +10,8 @@ import { GameServiceService } from '../../services/game-service.service';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { RegisterServiceService } from '../../services/register-service.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -18,10 +20,12 @@ import { RegisterServiceService } from '../../services/register-service.service'
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   formRegister!: FormGroup;
   name: string = '';
   email: string = '';
+
+  private unsubscribe$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -40,10 +44,15 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.gameService.setUserName(this.name);
     this.gameService.setUserEmail(this.email);
-    this.registerService.saveUser(this.name, this.email).subscribe(
+    this.registerService.saveUser(this.name, this.email).pipe(takeUntil(this.unsubscribe$)).subscribe(
       (response) => console.log('Informacion guardada', response),
       (error) => console.log(`Error al enviar`, error)
     );
     this.router.navigate(['/difficulty']);
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

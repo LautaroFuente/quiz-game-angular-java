@@ -8,7 +8,7 @@ import { Difficulty } from '../types/difficulty.type';
 })
 export class QuestionsServiceService {
 
-  private apiUrl = 'http://localhost:8080/api/questions';
+  private apiUrl = 'http://localhost:8080/api/question';
 
   constructor( private httpClient: HttpClient) { }
 

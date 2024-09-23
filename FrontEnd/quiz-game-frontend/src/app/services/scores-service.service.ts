@@ -7,7 +7,7 @@ import { Difficulty } from '../types/difficulty.type';
   providedIn: 'root',
 })
 export class ScoresServiceService {
-  private apiUrl = 'http://localhost:8080/api/scores';
+  private apiUrl = 'http://localhost:8080/api/score';
 
   constructor(private http: HttpClient) {}
 
@@ -26,13 +26,12 @@ export class ScoresServiceService {
     win: boolean,
     difficulty: Difficulty
   ): Observable<any> {
-    const url = 'http://localhost:8080/api/scores';
     const data = { userName, userEmail, userScore, win, difficulty };
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
 
-    return this.http.post(url, data, { headers });
+    return this.http.post(this.apiUrl, data, { headers });
   }
 }

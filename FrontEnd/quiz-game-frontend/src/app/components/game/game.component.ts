@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GameServiceService } from '../../services/game-service.service';
 import { ScoresServiceService } from '../../services/scores-service.service';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ import { Subject } from 'rxjs';
   templateUrl: './game.component.html',
   styleUrl: './game.component.css'
 })
-export class GameComponent implements OnDestroy{
+export class GameComponent implements OnDestroy, OnInit{
 
   userName!:string;
   userEmail!:string;
@@ -31,21 +31,28 @@ export class GameComponent implements OnDestroy{
 
   private unsubscribe$ = new Subject<void>();
 
-  constructor( private gameService: GameServiceService, private scoreService: ScoresServiceService, private router: Router, 
-  private questionService: QuestionsServiceService, private answersService: AnswersServiceService){
+  constructor( 
+    private gameService: GameServiceService, 
+    private scoreService: ScoresServiceService, 
+    private router: Router, 
+    private questionService: QuestionsServiceService, 
+    private answersService: AnswersServiceService)
+    {}
 
+  ngOnInit(): void {
     this.userName = this.gameService.getUserName();
     this.userEmail = this.gameService.getUserEmail();
     this.userScore = this.gameService.getUserScore();
     this.win = this.gameService.getWin();
     this.difficulty = this.gameService.getDifficulty();
-    this.questionService.getQuestions(this.difficulty).subscribe(
+    this.questionService.getQuestions(this.difficulty).pipe(takeUntil(this.unsubscribe$)).subscribe(
       (response) => {
         console.log('Informacion obtenida', response);
         this.questions = response;
       },
       (error) => console.log(`Error`, error)
     );
+    this.game();
     this.loadAnswers();
   }
 
@@ -94,7 +101,9 @@ export class GameComponent implements OnDestroy{
   }
 
   endgame():void{
-
+    if(this.time > 0){
+      this.win = true;
+    }
     this.scoreService.saveScore(this.userName, this.userEmail, this.userScore, this.win, this.difficulty);
     this.router.navigate(['/endgame']);
   }

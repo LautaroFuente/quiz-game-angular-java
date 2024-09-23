@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root',
 })
 export class RegisterServiceService {
-  private apiUrl = 'http://localhost:8080/api/users';
+  private apiUrl = 'http://localhost:8080/api/user';
 
   constructor(private http: HttpClient) {}
 
@@ -15,17 +15,16 @@ export class RegisterServiceService {
       'Content-Type': 'application/json',
     });
 
-    return this.http.get<any>(this.apiUrl, { headers });
+    return this.http.get<any>(`${this.apiUrl}/all`, { headers });
   }
 
   saveUser(userName: string, userEmail: string): Observable<any> {
-    const url = 'http://localhost:8080/api/users';
     const data = { userName, userEmail };
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
 
-    return this.http.post(url, data, { headers });
+    return this.http.post(this.apiUrl, data, { headers });
   }
 }

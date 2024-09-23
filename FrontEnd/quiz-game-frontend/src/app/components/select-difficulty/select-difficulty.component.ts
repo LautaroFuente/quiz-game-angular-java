@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GameServiceService } from '../../services/game-service.service';
 import { Router } from '@angular/router';
 import { Difficulty } from '../../types/difficulty.type';
@@ -10,11 +10,13 @@ import { Difficulty } from '../../types/difficulty.type';
   templateUrl: './select-difficulty.component.html',
   styleUrl: './select-difficulty.component.css'
 })
-export class SelectDifficultyComponent {
+export class SelectDifficultyComponent implements OnInit {
 
   userName!:string;
 
-  constructor(private gameService:GameServiceService, private router:Router){
+  constructor(private gameService:GameServiceService, private router:Router){}
+
+  ngOnInit(): void {
     this.userName = this.gameService.getUserName();
   }
 

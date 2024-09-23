@@ -22,7 +22,7 @@ public class AnswerController {
 	
 	@CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/answer")
-    public ResponseEntity<List<Answer>> postData(@RequestParam Long questionId) {
+    public ResponseEntity<List<Answer>> getAnswers(@RequestParam Long questionId) {
 
 
         return ResponseEntity.ok(this.answerservice.getAnswersForQuestion(questionId));

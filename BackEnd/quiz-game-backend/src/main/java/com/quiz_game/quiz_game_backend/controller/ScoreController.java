@@ -36,7 +36,7 @@ public class ScoreController {
 	
 	@CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/score")
-    public ResponseEntity<Score> postData(@RequestBody ScoreDTO scoreDTO) {
+    public ResponseEntity<Score> saveScore(@RequestBody ScoreDTO scoreDTO) {
 
 		Difficulty difficulty = difficultyservice.getOneDifficulty(scoreDTO.getDifficulty());
 	    if (difficulty == null) {
