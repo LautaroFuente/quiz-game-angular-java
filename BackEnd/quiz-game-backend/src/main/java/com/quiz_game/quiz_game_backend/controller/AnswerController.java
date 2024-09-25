@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.quiz_game.quiz_game_backend.DTO.ApiResponseDTO;
 import com.quiz_game.quiz_game_backend.entities.Answer;
 import com.quiz_game.quiz_game_backend.service.AnswerService;
 
@@ -22,10 +23,17 @@ public class AnswerController {
 	
 	@CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/answer")
-    public ResponseEntity<List<Answer>> getAnswers(@RequestParam Long questionId) {
+    public ResponseEntity<ApiResponseDTO<List<Answer>>> getAnswers(@RequestParam Long questionId) {
 
-
-        return ResponseEntity.ok(this.answerservice.getAnswersForQuestion(questionId));
+		if(questionId == null || questionId < 0) {
+			return ResponseEntity.badRequest().body(new ApiResponseDTO<>(false, "El id de la pregunta no puede ser menor a 0 o ser nulo", null));
+		}
+		try {
+			List<Answer> answers = this.answerservice.getAnswersForQuestion(questionId);
+			return ResponseEntity.ok(new ApiResponseDTO<>(true, "Respuestas obtenidas exitosamente", answers));
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body(new ApiResponseDTO<>(false, "Error al obtener las respuestas: " + e.getMessage(), null));
+		}
     }
 
 }

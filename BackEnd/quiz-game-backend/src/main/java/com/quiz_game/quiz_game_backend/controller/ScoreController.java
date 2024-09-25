@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.quiz_game.quiz_game_backend.DTO.ApiResponseDTO;
 import com.quiz_game.quiz_game_backend.DTO.ScoreDTO;
 import com.quiz_game.quiz_game_backend.entities.Difficulty;
 import com.quiz_game.quiz_game_backend.entities.Score;
@@ -30,21 +31,35 @@ public class ScoreController {
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/score")
-	public ResponseEntity<List<Score>> getAllScores(){
-		return ResponseEntity.ok(this.scoreservice.getAllScores());
+	public ResponseEntity<ApiResponseDTO<List<Score>>> getAllScores(){
+		try {
+			List<Score> scores = this.scoreservice.getAllScores();
+			return ResponseEntity.ok(new ApiResponseDTO<>(true, "Puntuaciones obtenidas exitosamente", scores));
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body(new ApiResponseDTO<>(false, "Error al obtener las puntuaciones: " + e.getMessage(), null));
+		}
+
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/score")
-    public ResponseEntity<Score> saveScore(@RequestBody ScoreDTO scoreDTO) {
-
-		Difficulty difficulty = difficultyservice.getOneDifficulty(scoreDTO.getDifficulty());
-	    if (difficulty == null) {
-	        return ResponseEntity.badRequest().body(null);
-	    }
-		User user = new User(scoreDTO.getUserName(), scoreDTO.getUserEmail());
-		Score score = new Score(user, scoreDTO.getUserScore(), scoreDTO.isWin(), difficulty);
-		this.scoreservice.addScore(score);
-        return ResponseEntity.ok(score);
+    public ResponseEntity<ApiResponseDTO<Score>> saveScore(@RequestBody ScoreDTO scoreDTO) {
+		
+		if(scoreDTO == null) {
+			return ResponseEntity.badRequest().body(new ApiResponseDTO<>(false, "La puntuacion a guardar no puede ser nulo", null));
+		}
+		try {
+			Difficulty difficulty = difficultyservice.getOneDifficulty(scoreDTO.getDifficulty());
+		    if (difficulty == null) {
+		        return ResponseEntity.badRequest().body(null);
+		    }
+			User user = new User(scoreDTO.getUserName(), scoreDTO.getUserEmail());
+			Score score = new Score(user, scoreDTO.getUserScore(), scoreDTO.isWin(), difficulty);
+			this.scoreservice.addScore(score);
+	        return ResponseEntity.ok(new ApiResponseDTO<>(true, "Puntuacion guardada exitosamente", score));
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body(new ApiResponseDTO<>(false, "Error al agregar la puntuacion: " + e.getMessage(), null));
+		}
+		
     }
 }

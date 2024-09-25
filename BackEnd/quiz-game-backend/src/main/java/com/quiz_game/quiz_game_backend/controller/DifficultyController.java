@@ -37,7 +37,7 @@ public class DifficultyController {
 	@GetMapping("/difficulty")
 	public ResponseEntity<ApiResponseDTO<Difficulty>> getOneDifficulty(@RequestParam String name){
 		if(name == null || name.isEmpty()) {
-			return ResponseEntity.badRequest().body(new ApiResponseDTO<>(false, "El campo name no puede estar vacio o ser nulo", null));
+			return ResponseEntity.badRequest().body(new ApiResponseDTO<>(false, "El campo nombre no puede estar vacio o ser nulo", null));
 		}
 		try {
 			Difficulty difficulty = this.difficultyservice.getOneDifficulty(name);

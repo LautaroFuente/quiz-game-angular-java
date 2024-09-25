@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.quiz_game.quiz_game_backend.DTO.ApiResponseDTO;
 import com.quiz_game.quiz_game_backend.entities.Question;
 import com.quiz_game.quiz_game_backend.service.QuestionService;
 
@@ -24,23 +25,46 @@ public class QuestionController {
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/question/all")
-	public ResponseEntity<List<Question>> getAllQuestions(){
+	public ResponseEntity<ApiResponseDTO<List<Question>>> getAllQuestions(){
 		
-		return ResponseEntity.ok(this.questionservice.getAllQuestions());
+		try {
+			List<Question> allQuestions = this.questionservice.getAllQuestions();
+			return ResponseEntity.ok(new ApiResponseDTO<>(true, "Todas las preguntas obtenidas exitosamente", allQuestions));
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body(new ApiResponseDTO<>(false, "Error al obtener todas las preguntas: " + e.getMessage(), null));
+		}
+		
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/question")
-	public ResponseEntity<List<Question>> getQuestions(@RequestParam String difficulty){
+	public ResponseEntity<ApiResponseDTO<List<Question>>> getQuestions(@RequestParam String difficulty){
 		
-		return ResponseEntity.ok(this.questionservice.getQuestionsForDifficulty(difficulty));
+		if(difficulty == null || difficulty.isEmpty()) {
+			return ResponseEntity.badRequest().body(new ApiResponseDTO<>(false, "La dificultad no puede ser vacia o ser nulo", null));
+		}
+		try {
+			List<Question> questionsForDifficulty = this.questionservice.getQuestionsForDifficulty(difficulty);
+			return ResponseEntity.ok(new ApiResponseDTO<>(true, "Todas las preguntas para la dificultad obtenidas exitosamente", questionsForDifficulty));
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body(new ApiResponseDTO<>(false, "Error al obtener las preguntas de la dificultad: " + e.getMessage(), null));
+		}
+	
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/question")
-	public ResponseEntity<Question> addQuestion(@RequestBody Question question){
+	public ResponseEntity<ApiResponseDTO<Question>> addQuestion(@RequestBody Question question){
 		
-		this.questionservice.addQuestion(question);
-		return ResponseEntity.ok(question);
+		if(question == null) {
+			return ResponseEntity.badRequest().body(new ApiResponseDTO<>(false, "La pregunta a guardar no puede ser nulo", null));
+		}
+		try {
+			this.questionservice.addQuestion(question);
+			return ResponseEntity.ok(new ApiResponseDTO<>(true, "Pregunta agregada exitosamente", question));
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body(new ApiResponseDTO<>(false, "Error al agregar la pregunta: " + e.getMessage(), null));
+		}
+
 	}
 }

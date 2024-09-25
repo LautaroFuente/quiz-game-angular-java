@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
+import com.quiz_game.quiz_game_backend.DTO.ApiResponseDTO;
 import com.quiz_game.quiz_game_backend.entities.User;
 import com.quiz_game.quiz_game_backend.service.UserService;
 
@@ -23,23 +24,46 @@ public class UserController {
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("user/all")
-	public ResponseEntity<List<User>> getAllUsers(){
+	public ResponseEntity<ApiResponseDTO<List<User>>> getAllUsers(){
 		
-		return ResponseEntity.ok(this.userservice.getAllUsers());
+		try {
+			List<User> users = this.userservice.getAllUsers();
+			return ResponseEntity.ok(new ApiResponseDTO<>(true, "Usuarios obtenidos exitosamente", users));
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body(new ApiResponseDTO<>(false, "Error al obtener todos los usuarios: " + e.getMessage(), null));
+		}
+
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("user")
-	public ResponseEntity<User> getOneUser(@RequestParam String email){
+	public ResponseEntity<ApiResponseDTO<User>> getOneUser(@RequestParam String email){
 		
-		return ResponseEntity.ok(this.userservice.getOneUser(email));
+		if(email == null || email.isEmpty()) {
+			return ResponseEntity.badRequest().body(new ApiResponseDTO<>(false, "El email para buscar no puede ser vacio o ser nulo", null));
+		}
+		try {
+			User user = this.userservice.getOneUser(email);
+			return ResponseEntity.ok(new ApiResponseDTO<>(true, "Usuario obtenido exitosamente", user));
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body(new ApiResponseDTO<>(false, "Error al obtener el usuario con dicho email: " + e.getMessage(), null));
+		}
+
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("user")
-	public ResponseEntity<User> addUser(@RequestBody User user){
+	public ResponseEntity<ApiResponseDTO<User>> addUser(@RequestBody User user){
 		
-		this.userservice.addUser(user);
-		return ResponseEntity.ok(user);
+		if(user == null) {
+			return ResponseEntity.badRequest().body(new ApiResponseDTO<>(false, "El usuario a guardar no puede ser nulo", null));
+		}
+		try {
+			this.userservice.addUser(user);
+			return ResponseEntity.ok(new ApiResponseDTO<>(true, "Usuario guardado exitosamente", user));
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body(new ApiResponseDTO<>(false, "Error al agregar el usuario: " + e.getMessage(), null));
+		}
+
 	}
 }
