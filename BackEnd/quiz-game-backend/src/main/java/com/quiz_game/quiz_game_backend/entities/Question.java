@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Question {
@@ -13,6 +14,7 @@ public class Question {
 	private Long id;
 	
 	private String description;
+	@ManyToOne
 	private Difficulty difficulty;
 	
 	public Question(String description, Difficulty difficulty) {

@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Score {
@@ -12,9 +13,11 @@ public class Score {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@ManyToOne
 	private User user;
 	private int score;
 	private boolean win;
+	@ManyToOne
 	private Difficulty difficulty;
 	
 	public Score(User user, int score, boolean win, Difficulty difficulty) {

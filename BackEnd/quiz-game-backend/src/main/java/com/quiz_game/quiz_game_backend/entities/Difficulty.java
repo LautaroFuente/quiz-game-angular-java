@@ -1,5 +1,6 @@
 package com.quiz_game.quiz_game_backend.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +13,7 @@ public class Difficulty {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(name = "name", nullable = false)
 	private String name;
 
 	public Difficulty(String name) {
