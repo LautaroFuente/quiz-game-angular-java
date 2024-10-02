@@ -58,12 +58,14 @@ export class GameComponent implements OnDestroy, OnInit{
 
   game():void{
 
-    setTimeout(() => {
-      this.time = this.time - 1;
-      if(this.time == 0){
-        this.endgame();
+    const timer = setInterval(() => {
+      this.time -= 1;
+  
+      if (this.time <= 0) {
+          clearInterval(timer);
+          this.endgame();
       }
-    }, 1000);    
+  }, 1000);    
 
   }
 
