@@ -42,13 +42,23 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.gameService.setUserName(this.name);
-    this.gameService.setUserEmail(this.email);
-    this.registerService.saveUser(this.name, this.email).pipe(takeUntil(this.unsubscribe$)).subscribe(
-      (response) => console.log('Informacion guardada', response),
-      (error) => console.log(`Error al enviar`, error)
-    );
-    this.router.navigate(['/difficulty']);
+    if (this.formRegister.valid) {
+      const { name, email } = this.formRegister.value;
+      this.gameService.setUserName(name);
+      this.gameService.setUserEmail(email);
+      
+      this.registerService.saveUser(name, email).pipe(takeUntil(this.unsubscribe$)).subscribe(
+        (response) => {
+          console.log('Informacion guardada', response);
+          this.router.navigate(['/difficulty']);
+        },
+        (error) => {
+          console.log(`Error al enviar`, error);
+        }
+      );
+    } else {
+      console.log('Formulario no válido'); 
+    }
   }
 
   ngOnDestroy(): void {

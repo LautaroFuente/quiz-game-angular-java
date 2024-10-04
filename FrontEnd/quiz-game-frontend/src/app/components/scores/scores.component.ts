@@ -22,7 +22,7 @@ export class ScoresComponent implements OnInit, OnDestroy{
     this.scoreService.getScores().pipe(takeUntil(this.unsubscribe$)).subscribe(
       (response) => {
         console.log('Informacion obtenida', response);
-        this.scores = response;
+        this.scores = response.data;
       },
       (error) => console.log(`Error`, error)
     );

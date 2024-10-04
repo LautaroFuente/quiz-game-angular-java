@@ -3,10 +3,20 @@
 <div>Dificultad: {{this.difficulty}}</div>
 <h3>Pregunta Numero: {{this.index + 1}}</h3>
 <div>
-    <div>{{this.questions[this.index].description}}</div>
+    <div>
+        @if (this.questions && this.questions.length > 0) {
+            {{this.questions[this.index].description}}
+        }@else {
+            CARGANDO PREGUNTAS
+        }
+    </div>
     <ul>
-        <li (click)="onClickOption(this.answersPosibilities[0])">{{this.answersPosibilities[0].description}}</li>
-        <li (click)="onClickOption(this.answersPosibilities[1])">{{this.answersPosibilities[1].description}}</li>
-        <li (click)="onClickOption(this.answersPosibilities[2])">{{this.answersPosibilities[2].description}}</li>
+        @if (this.answersPosibilities && this.answersPosibilities.length > 0) {
+            <li (click)="onClickOption(this.answersPosibilities[0])">{{this.answersPosibilities[0].description}}</li>
+            <li (click)="onClickOption(this.answersPosibilities[1])">{{this.answersPosibilities[1].description}}</li>
+            <li (click)="onClickOption(this.answersPosibilities[2])">{{this.answersPosibilities[2].description}}</li>
+        }@else {
+            <li>CARGANDO RESPUESTAS</li>
+        }
     </ul>
 </div>

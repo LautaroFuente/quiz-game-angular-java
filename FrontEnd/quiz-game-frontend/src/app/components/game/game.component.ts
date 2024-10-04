@@ -24,8 +24,8 @@ export class GameComponent implements OnDestroy, OnInit{
   userScore!:number;
   win!:boolean;
   difficulty!:Difficulty;
-  questions!:Question[];
-  answersPosibilities!:Answer[]; 
+  questions:Question[] = [];
+  answersPosibilities:Answer[] = []; 
   index:number = 0;
   time:number = 60;
 
@@ -48,19 +48,17 @@ export class GameComponent implements OnDestroy, OnInit{
     this.questionService.getQuestions(this.difficulty).pipe(takeUntil(this.unsubscribe$)).subscribe(
       (response) => {
         console.log('Informacion obtenida', response);
-        this.questions = response;
+        this.questions = response.data;
+        this.loadAnswers();
       },
       (error) => console.log(`Error`, error)
     );
     this.game();
-    this.loadAnswers();
   }
 
   game():void{
-
     const timer = setInterval(() => {
       this.time -= 1;
-  
       if (this.time <= 0) {
           clearInterval(timer);
           this.endgame();
@@ -87,16 +85,20 @@ export class GameComponent implements OnDestroy, OnInit{
   }
 
   loadAnswers():void{
+    if(this.questions && this.questions.length > 0){
     this.getAnswersForTheQuestion();
-  }
-
+    }
+    else{
+      console.log("No hay preguntas cargadas");
+    }
+  }  
   getAnswersForTheQuestion():void{
     this.answersService.getAnswers(this.questions[this.index].id).pipe(
       takeUntil(this.unsubscribe$)
     ).subscribe(
       (response) => {
         console.log('Informacion obtenida', response);
-        this.answersPosibilities = response;
+        this.answersPosibilities = response.data;
       },
       (error) => console.log(`Error`, error)
     );
@@ -106,8 +108,13 @@ export class GameComponent implements OnDestroy, OnInit{
     if(this.time > 0){
       this.win = true;
     }
-    this.scoreService.saveScore(this.userName, this.userEmail, this.userScore, this.win, this.difficulty);
-    this.router.navigate(['/endgame']);
+    this.scoreService.saveScore(this.userName, this.userEmail, this.userScore, this.win, this.difficulty).pipe(takeUntil(this.unsubscribe$)).subscribe(
+      (response) => {
+        console.log('Informacion guardada', response);
+        this.router.navigate(['/endgame']);
+      },
+      (error) => console.log(`Error al guardar`, error)
+    );
   }
 
   ngOnDestroy(): void {
