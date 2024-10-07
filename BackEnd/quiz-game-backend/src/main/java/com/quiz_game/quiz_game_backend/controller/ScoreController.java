@@ -18,6 +18,7 @@ import com.quiz_game.quiz_game_backend.entities.Score;
 import com.quiz_game.quiz_game_backend.entities.User;
 import com.quiz_game.quiz_game_backend.service.DifficultyService;
 import com.quiz_game.quiz_game_backend.service.ScoreService;
+import com.quiz_game.quiz_game_backend.service.UserService;
 
 @RestController
 @RequestMapping("/api")
@@ -28,6 +29,9 @@ public class ScoreController {
 	
 	@Autowired
 	private DifficultyService difficultyservice;
+	
+	@Autowired
+	private UserService userservice;
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/score")
@@ -53,10 +57,15 @@ public class ScoreController {
 		    if (difficulty == null) {
 		        return ResponseEntity.badRequest().body(null);
 		    }
-			User user = new User(scoreDTO.getUserName(), scoreDTO.getUserEmail());
-			Score score = new Score(user, scoreDTO.getUserScore(), scoreDTO.isWin(), difficulty);
-			this.scoreservice.addScore(score);
-	        return ResponseEntity.ok(new ApiResponseDTO<>(true, "Puntuacion guardada exitosamente", score));
+		    User user = this.userservice.getOneUser(scoreDTO.getUserEmail());
+		    if(user == null) {
+		    	return ResponseEntity.badRequest().body(new ApiResponseDTO<>(false, "El usuario que esta jugando no esta registrado", null));
+		    }else {
+				Score score = new Score(user, scoreDTO.getUserScore(), scoreDTO.isWin(), difficulty);
+				this.scoreservice.addScore(score);
+		        return ResponseEntity.ok(new ApiResponseDTO<>(true, "Puntuacion guardada exitosamente", score));
+		    }
+		
 		} catch (Exception e) {
 			return ResponseEntity.status(500).body(new ApiResponseDTO<>(false, "Error al agregar la puntuacion: " + e.getMessage(), null));
 		}

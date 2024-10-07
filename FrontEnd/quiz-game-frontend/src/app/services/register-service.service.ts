@@ -18,9 +18,9 @@ export class RegisterServiceService {
     return this.http.get<any>(`${this.apiUrl}/all`, { headers });
   }
 
-  saveUser(userName: string, userEmail: string): Observable<any> {
-    const data = { userName, userEmail };
-
+  saveUser(name: string, email: string): Observable<any> {
+    const data = { name, email };
+    console.log(name,)
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });

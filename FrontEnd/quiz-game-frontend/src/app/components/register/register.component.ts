@@ -46,7 +46,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
       const { name, email } = this.formRegister.value;
       this.gameService.setUserName(name);
       this.gameService.setUserEmail(email);
-      
       this.registerService.saveUser(name, email).pipe(takeUntil(this.unsubscribe$)).subscribe(
         (response) => {
           console.log('Informacion guardada', response);

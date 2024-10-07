@@ -6,5 +6,5 @@
     <h3>PERDISTE!</h3>
 }
 <h4>Puntuacion: {{this.userScore}} en dificultad: {{this.difficulty}}</h4>
-<a routerLink="/" >Volver al menu</a>
-<a routerLink="/scores" >Puntuaciones</a>
+<a (click)="backMenu()" >Volver al menu</a>
+<a (click)="toScore()" >Puntuaciones</a>
