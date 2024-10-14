@@ -1,4 +1,6 @@
 <h1>{{this.userName}}, elegi dificultad</h1>
-<button (click)="setDifficulty('easy')">Facil</button>
-<button (click)="setDifficulty('medium')">Medio</button>
-<button (click)="setDifficulty('hard')">Dificil</button>
+<div class="menu">
+    <button class="easy" (click)="setDifficulty('easy')">Facil</button>
+    <button class="medium" (click)="setDifficulty('medium')">Medio</button>
+    <button class="hard" (click)="setDifficulty('hard')">Dificil</button>
+</div>

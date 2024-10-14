@@ -1,10 +1,12 @@
 <h1>Fin del juego</h1>
 <h2>{{this.userEmail}} alias: {{this.userName}}</h2>
 @if (this.win) {
-    <h3>GANASTE!</h3>
+    <h3 class="win">GANASTE!</h3>
 }@else {
-    <h3>PERDISTE!</h3>
+    <h3 class="lose">PERDISTE!</h3>
 }
 <h4>Puntuacion: {{this.userScore}} en dificultad: {{this.difficulty}}</h4>
-<a (click)="backMenu()" >Volver al menu</a>
-<a (click)="toScore()" >Puntuaciones</a>
+<div class="menu">
+    <a (click)="backMenu()" >Volver al menu</a>
+    <a (click)="toScore()" >Puntuaciones</a>
+</div>

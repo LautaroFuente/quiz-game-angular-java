@@ -1,0 +1,34 @@
+body{
+    background-color: #E0F7FA;
+}
+
+h1,h2,h3,h4{
+    text-align: center;
+    color: #007BFF;
+}
+
+.win{
+    color: #28A745;
+}
+
+.lose{
+    color: #DC3545;
+}
+
+a{
+    padding: 2rem;
+    margin: 1rem;
+    background-color: #007BFF;
+    color: #FFFFFF;
+    border: solid 2px #1f5997;
+    border-radius: 4px;
+}
+
+.menu{
+    width: 100%;
+    margin: 1rem auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

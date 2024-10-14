@@ -1,0 +1,26 @@
+body{
+    background-color: #FFFFFF;
+}
+
+h1{
+    text-align: center;
+    color: #007BFF;
+}
+
+a{
+    padding: 2rem;
+    margin: 1rem;
+    background-color: #007BFF;
+    color: #FFFFFF;
+    border: solid 2px #1f5997;
+    border-radius: 4px;
+}
+
+.menu{
+    width: 100%;
+    margin: 1rem auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

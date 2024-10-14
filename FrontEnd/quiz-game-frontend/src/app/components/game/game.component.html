@@ -1,9 +1,9 @@
 <h1>Responde Correctamente</h1>
-<div>Tiempo: {{this.time}}</div>
-<div>Dificultad: {{this.difficulty}}</div>
+<div class="timer">Tiempo: {{this.time}}</div>
+<div class="difficulty">Dificultad: {{this.difficulty}}</div>
 <h3>Pregunta Numero: {{this.index + 1}}</h3>
 <div>
-    <div>
+    <div class="questions">
         @if (this.questions && this.questions.length > 0) {
             {{this.questions[this.index].description}}
         }@else {

@@ -1,0 +1,53 @@
+body{
+    background-color: #FFFFFF;
+}
+
+h1,h3{
+    text-align: center;
+    color: #007BFF;
+}
+
+a, button{
+    padding: 2rem;
+    margin: 1rem;
+    background-color: #007BFF;
+    color: #FFFFFF;
+    border: solid 2px #1f5997;
+    border-radius: 4px;
+}
+
+.timer, .difficulty, .questions{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.questions{
+    color: #007BFF;
+}
+
+.difficulty{
+    color: #FFC107;
+}
+
+.timer{
+    color: #DC3545;
+}
+
+ul{
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+li{
+    padding: 2rem;
+    margin: 1rem;
+    background-color: #FFC107;
+    color: #FFFFFF;
+    border: solid 2px #c29716;
+    border-radius: 4px;
+}
