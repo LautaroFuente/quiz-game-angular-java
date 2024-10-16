@@ -16,6 +16,11 @@ button{
     border-radius: 4px;
 }
 
+button:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+
 .easy{
     background-color: #28A745;
     border: solid 2px #2c8341;

@@ -2,8 +2,8 @@
 
 <div class="score-container">
   <ul>
-    @for (score of scores; track score.userEmail) {
-    <li class="score">{{ score.userName }} {{ score.userEmail }} {{ score.userScore }}</li>
+    @for (score of scores; track score.id) {
+    <li class="score">Usuario:{{ score.user.name }} | Emai:{{ score.user.email }} | Puntaje:{{ score.score }}</li>
     } @empty {
     <li class="no-score">No hay puntuaciones.</li>
     }

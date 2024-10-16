@@ -50,4 +50,11 @@ li{
     color: #FFFFFF;
     border: solid 2px #c29716;
     border-radius: 4px;
+    min-width: 60vw;
+    text-align: center;
+}
+
+li:hover{
+    cursor: pointer;
+    opacity: 0.8;
 }

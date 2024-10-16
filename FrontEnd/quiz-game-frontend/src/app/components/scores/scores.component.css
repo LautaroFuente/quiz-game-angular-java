@@ -16,6 +16,11 @@ a{
     border-radius: 4px;
 }
 
+a:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+
 .menu{
     width: 100%;
     margin: 1rem auto;
@@ -36,14 +41,19 @@ ul{
     border: solid 2px #1f5997;
     border-radius: 4px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 2px;
+    list-style: none;
+    margin: 1rem;
+    padding: 0;
 }
 
 li{
     margin: 1rem;
     text-align: center;
+    border-bottom: solid 2px #1f5997;
 }
 
 .score{

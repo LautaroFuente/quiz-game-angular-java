@@ -59,12 +59,12 @@ public class UserController {
 			return ResponseEntity.badRequest().body(new ApiResponseDTO<>(false, "El usuario a guardar no puede ser nulo", null));
 		}
 		try {
-			
-			if(this.getOneUser(user.getEmail()) == null) {
+			User existUser = this.userservice.getOneUser(user.getEmail());
+			if( existUser == null) {
 				this.userservice.addUser(user);
-				return ResponseEntity.ok(new ApiResponseDTO<>(true, "Usuario guardado exitosamente", user));
+				return ResponseEntity.ok(new ApiResponseDTO<>(true, "Usuario guardado exitosamente", user));	
 			}else {
-				return ResponseEntity.ok(new ApiResponseDTO<>(true, "Usuario existente logueado ", user));
+				return ResponseEntity.ok(new ApiResponseDTO<>(true, "Usuario existente logueado", user));
 			}
 			
 			

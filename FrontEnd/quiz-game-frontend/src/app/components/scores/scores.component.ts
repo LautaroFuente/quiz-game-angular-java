@@ -3,11 +3,12 @@ import { ScoresServiceService } from '../../services/scores-service.service';
 import { Score } from '../../interfaces/Score.interface';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-scores',
   standalone: true,
-  imports: [],
+  imports: [ RouterModule ],
   templateUrl: './scores.component.html',
   styleUrl: './scores.component.css',
 })

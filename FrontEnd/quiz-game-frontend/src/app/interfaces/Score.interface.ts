@@ -1,9 +1,10 @@
 import { Difficulty } from '../types/difficulty.type';
+import { User } from './User.interface';
 
 export interface Score {
-  userName: string;
-  userEmail: string;
-  userScore: number;
+  id:number
+  user:User;
+  score: number;
   win: boolean;
   difficulty: Difficulty;
 }

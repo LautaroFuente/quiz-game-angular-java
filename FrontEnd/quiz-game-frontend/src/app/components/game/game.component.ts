@@ -108,6 +108,8 @@ export class GameComponent implements OnDestroy, OnInit{
     if(this.time > 0){
       this.win = true;
     }
+    this.gameService.setUserScore(this.userScore);
+    this.gameService.setWin(this.win);
     this.scoreService.saveScore(this.userName, this.userEmail, this.userScore, this.win, this.difficulty).pipe(takeUntil(this.unsubscribe$)).subscribe(
       (response) => {
         console.log('Informacion guardada', response);
