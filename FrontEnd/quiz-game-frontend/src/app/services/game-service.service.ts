@@ -11,6 +11,7 @@ export class GameServiceService {
   userScore:number = 0;
   win:boolean = false;
   difficulty:Difficulty = "easy";
+  hits:number = 0;
 
   constructor() { }
 
@@ -20,6 +21,7 @@ export class GameServiceService {
     this.userScore = 0;
     this.win = false;
     this.difficulty = "easy";
+    this.hits = 0;
   }
 
   getUserName(): string{
@@ -60,5 +62,13 @@ export class GameServiceService {
 
   setDifficulty(difficulty:Difficulty): void{
     this.difficulty = difficulty;
+  }
+
+  getHits(): number{
+    return this.hits;
+  }
+
+  setHits(hits:number): void{
+    this.hits = hits;
   }
 }

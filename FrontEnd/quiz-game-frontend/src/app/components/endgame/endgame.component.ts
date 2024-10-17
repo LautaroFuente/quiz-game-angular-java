@@ -17,6 +17,7 @@ export class EndgameComponent implements OnInit{
   userScore!: number;
   win!: boolean;
   difficulty!: Difficulty;
+  hits!: number;
 
   constructor(private gameService: GameServiceService, private router:Router) {}
 
@@ -26,6 +27,7 @@ export class EndgameComponent implements OnInit{
     this.userScore = this.gameService.getUserScore();
     this.win = this.gameService.getWin();
     this.difficulty = this.gameService.getDifficulty();
+    this.hits = this.gameService.getHits();
   }
 
   backMenu(){

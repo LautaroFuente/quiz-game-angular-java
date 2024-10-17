@@ -1,5 +1,6 @@
 body{
     background-color: #FFFFFF;
+    position: relative;
 }
 
 h1,h3{
@@ -57,4 +58,28 @@ li{
 li:hover{
     cursor: pointer;
     opacity: 0.8;
+}
+
+.error {
+    color: #b41414;
+    font-size: 96px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    animation: errorAnimation 0.6s ease-in-out 0s 1 normal forwards;
+}
+
+
+@keyframes errorAnimation {
+	0% {
+		opacity: 0;
+		transform: scale(0.6);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
 }

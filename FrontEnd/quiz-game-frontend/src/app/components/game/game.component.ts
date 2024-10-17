@@ -9,6 +9,7 @@ import { AnswersServiceService } from '../../services/answers-service.service';
 import { Answer } from '../../interfaces/Answer.interface';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { ConfettiServiceService } from '../../services/confetti-service.service';
 
 @Component({
   selector: 'app-game',
@@ -28,6 +29,8 @@ export class GameComponent implements OnDestroy, OnInit{
   answersPosibilities:Answer[] = []; 
   index:number = 0;
   time:number = 60;
+  hits:number = 0;
+  showError:boolean = false;
 
   private unsubscribe$ = new Subject<void>();
 
@@ -36,7 +39,8 @@ export class GameComponent implements OnDestroy, OnInit{
     private scoreService: ScoresServiceService, 
     private router: Router, 
     private questionService: QuestionsServiceService, 
-    private answersService: AnswersServiceService)
+    private answersService: AnswersServiceService,
+    private confettiService: ConfettiServiceService)
     {}
 
   ngOnInit(): void {
@@ -69,10 +73,13 @@ export class GameComponent implements OnDestroy, OnInit{
 
   onClickOption( answer: Answer):void{
     if(answer.correct){
+      this.confettiService.showConfetti();
       this.time += 10;
       this.userScore += 10;
+      this.hits += 1;
     }
     else{
+      this.showErrorMessage();
       this.time -= 5;
     }
 
@@ -82,6 +89,13 @@ export class GameComponent implements OnDestroy, OnInit{
       this.index += 1;
       this.loadAnswers();
     }  
+  }
+
+  showErrorMessage(): void {
+    this.showError = true;
+    setTimeout(()=>{
+      this.showError = false;
+    }, 1000);
   }
 
   loadAnswers():void{
@@ -110,6 +124,7 @@ export class GameComponent implements OnDestroy, OnInit{
     }
     this.gameService.setUserScore(this.userScore);
     this.gameService.setWin(this.win);
+    this.gameService.setHits(this.hits);
     this.scoreService.saveScore(this.userName, this.userEmail, this.userScore, this.win, this.difficulty).pipe(takeUntil(this.unsubscribe$)).subscribe(
       (response) => {
         console.log('Informacion guardada', response);
