@@ -1,1 +1,7 @@
-# quiz-game-angular-java
+# 🕹️ Quiz game web
+
+## 📖 Description
+
+## 🚀 Getting Started
+
+## 🧰 Tech Stack
