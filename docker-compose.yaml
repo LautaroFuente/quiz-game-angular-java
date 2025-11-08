@@ -17,7 +17,7 @@ services:
 
   backend:
     build:
-      context: ./backend
+      context: ./BackEnd/quiz-game-backend
       dockerfile: Dockerfile
     container_name: quiz-backend
     depends_on:
@@ -25,12 +25,12 @@ services:
     ports:
       - "8080:8080"
     env_file:
-      - ./Backend/quiz-game-backend/.env
+      - ./BackEnd/quiz-game-backend/.env
     restart: always
 
   frontend:
     build:
-      context: ./frontend
+      context: ./FrontEnd/quiz-game-frontend
       dockerfile: Dockerfile
     container_name: quiz-frontend
     depends_on:
