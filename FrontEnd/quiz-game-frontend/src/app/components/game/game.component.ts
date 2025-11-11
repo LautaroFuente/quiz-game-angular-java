@@ -77,6 +77,7 @@ export class GameComponent implements OnDestroy, OnInit {
 
   clearTimer(): void {
     if (this.timer) {
+      console.log('limpiando timer...');
       clearInterval(this.timer);
       this.timer = null;
     }

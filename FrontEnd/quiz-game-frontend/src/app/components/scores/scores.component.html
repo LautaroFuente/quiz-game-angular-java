@@ -3,12 +3,17 @@
 <div class="score-container">
   <ul>
     @for (score of scores; track score.id) {
-    <li class="score">Usuario:{{ score.user.name }} | Emai:{{ score.user.email }} | Puntaje:{{ score.score }}</li>
+    <li class="score">
+      <strong>👤 Usuario:</strong> {{ score.user.name }}<br />
+      <strong>📧 Email:</strong> {{ score.user.email }}<br />
+      <strong>🏆 Puntaje:</strong> {{ score.score }}
+    </li>
     } @empty {
-    <li class="no-score">No hay puntuaciones.</li>
+    <li class="no-score">No hay puntuaciones todavía 😢</li>
     }
   </ul>
 </div>
+
 <div class="menu">
-  <a routerLink="/" >Volver al menu</a>
+  <a routerLink="/">Volver al menú</a>
 </div>

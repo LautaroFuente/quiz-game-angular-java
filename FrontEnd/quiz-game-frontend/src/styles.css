@@ -1,3 +1,85 @@
-a{
-    text-decoration: none;
+/* === GLOBAL DARK THEME === */
+:root {
+  --color-bg: #121212;
+  --color-bg-secondary: #1e1e1e;
+  --color-primary: #4caf50;
+  --color-secondary: #03dac6;
+  --color-text: #ffffff;
+  --color-text-secondary: #b0b0b0;
+  --color-error: #ff5252;
+  --color-success: #00c853;
+  --radius: 12px;
+  --transition: 0.3s ease;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Botones */
+button {
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.8rem 1.4rem;
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+
+  &:hover {
+    background-color: var(--color-secondary);
+    transform: scale(1.05);
+  }
+}
+
+/* Tarjetas / contenedores */
+.card {
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+/* Inputs */
+input,
+select {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid #333;
+  border-radius: var(--radius);
+  color: var(--color-text);
+  padding: 0.6rem;
+  width: 100%;
+  transition: var(--transition);
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 5px var(--color-primary);
+  }
+}
+
+/* Animaciones suaves */
+.fade-in {
+  animation: fadeIn 0.4s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -1,25 +1,35 @@
-<h1>Responde Correctamente</h1>
-<div class="timer">Tiempo: {{this.time}}</div>
-<div class="difficulty">Dificultad: {{this.difficulty}}</div>
-<h3>Pregunta Numero: {{this.index + 1}}</h3>
-<div>
-    <div class="questions">
-        @if (this.questions && this.questions.length > 0) {
-            {{this.questions[this.index].description}}
-        }@else {
-            CARGANDO PREGUNTAS
-        }
-    </div>
-    <ul>
-        @if (this.answersPosibilities && this.answersPosibilities.length > 0) {
-            <li (click)="onClickOption(this.answersPosibilities[0])">{{this.answersPosibilities[0].description}}</li>
-            <li (click)="onClickOption(this.answersPosibilities[1])">{{this.answersPosibilities[1].description}}</li>
-            <li (click)="onClickOption(this.answersPosibilities[2])">{{this.answersPosibilities[2].description}}</li>
-        }@else {
-            <li>CARGANDO RESPUESTAS</li>
-        }
-    </ul>
+<h1>🧠 Responde Correctamente</h1>
+
+<div class="game-info">
+  <div class="timer">⏱ Tiempo: {{ time }}</div>
+  <div class="difficulty">🎯 Dificultad: {{ difficulty }}</div>
+  <div class="question-number">Pregunta Nº {{ index + 1 }}</div>
 </div>
-@if (this.showError) {
-    <span class="error">✖️</span>
+
+<div class="questions">
+  @if (questions && questions.length > 0) {
+  <p class="question-text">{{ questions[index].description }}</p>
+  } @else {
+  <p class="loading">CARGANDO PREGUNTAS...</p>
+  }
+</div>
+
+<ul class="answers">
+  @if (answersPosibilities && answersPosibilities.length > 0) {
+  <li class="answer" (click)="onClickOption(answersPosibilities[0])">
+    {{ answersPosibilities[0].description }}
+  </li>
+  <li class="answer" (click)="onClickOption(answersPosibilities[1])">
+    {{ answersPosibilities[1].description }}
+  </li>
+  <li class="answer" (click)="onClickOption(answersPosibilities[2])">
+    {{ answersPosibilities[2].description }}
+  </li>
+  } @else {
+  <li class="loading">CARGANDO RESPUESTAS...</li>
+  }
+</ul>
+
+@if (showError) {
+<span class="error">✖️ Respuesta incorrecta</span>
 }

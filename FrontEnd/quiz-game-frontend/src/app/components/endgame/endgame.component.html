@@ -1,13 +1,26 @@
-<h1>Fin del juego</h1>
-<h2>{{this.userEmail}} alias: {{this.userName}}</h2>
-<h3>Acertaste:{{this.hits}}/10</h3>
-@if (this.win) {
-    <h3 class="win">GANASTE!</h3>
-}@else {
-    <h3 class="lose">PERDISTE!</h3>
-}
-<h4>Puntuacion: {{this.userScore}} en dificultad: {{this.difficulty}}</h4>
+<h1>🏁 Fin del juego</h1>
+
+<div class="player-info">
+  <h2>
+    {{ userEmail }} <span class="alias">({{ userName }})</span>
+  </h2>
+  <h3>✅ Acertaste: {{ hits }}/10</h3>
+</div>
+
+<div class="result">
+  @if (win) {
+  <h3 class="win">🎉 ¡GANASTE!</h3>
+  } @else {
+  <h3 class="lose">💀 PERDISTE</h3>
+  }
+</div>
+
+<h4 class="score-info">
+  🏆 Puntuación: <span>{{ userScore }}</span> en dificultad
+  <strong>{{ difficulty }}</strong>
+</h4>
+
 <div class="menu">
-    <a (click)="backMenu()" >Volver al menu</a>
-    <a (click)="toScore()" >Puntuaciones</a>
+  <a (click)="backMenu()">Volver al menú</a>
+  <a (click)="toScore()">Ver puntuaciones</a>
 </div>

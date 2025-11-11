@@ -1,6 +1,15 @@
-<h1>{{this.userName}}, elegi dificultad</h1>
-<div class="menu">
-    <button class="easy" (click)="setDifficulty('easy')">Facil</button>
-    <button class="medium" (click)="setDifficulty('medium')">Medio</button>
-    <button class="hard" (click)="setDifficulty('hard')">Dificil</button>
+<h1>{{ userName }}, elegí la dificultad</h1>
+
+<div class="difficulty-container">
+  <button class="difficulty-btn easy" (click)="setDifficulty('easy')">
+    🟢 Fácil
+  </button>
+
+  <button class="difficulty-btn medium" (click)="setDifficulty('medium')">
+    🟡 Medio
+  </button>
+
+  <button class="difficulty-btn hard" (click)="setDifficulty('hard')">
+    🔴 Difícil
+  </button>
 </div>
